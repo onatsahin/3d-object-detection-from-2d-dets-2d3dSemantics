@@ -1,0 +1,3 @@
+/home/ubuntu/stanford-detectron/pcl_mapping/center-point-multi/CMakeFiles/rebuild_cache.dir
+/home/ubuntu/stanford-detectron/pcl_mapping/center-point-multi/CMakeFiles/convert_coordinates.dir
+/home/ubuntu/stanford-detectron/pcl_mapping/center-point-multi/CMakeFiles/edit_cache.dir

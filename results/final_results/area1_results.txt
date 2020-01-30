@@ -1,0 +1,29 @@
+Object count: 340
+
+FALSE NEGATIVES: 38
+bookcase: 5
+chair: 25
+table: 8
+
+FALSE POSITIVES (FALSE OBJECT): 355
+beam: 5
+ceiling: 1
+clutter: 142
+column: 29
+door: 40
+floor: 26
+wall: 106
+window: 6
+
+FALSE POSITIVES (DISTANCE ABOVE THRESHOLD): 16
+bookcase: 2
+chair: 11
+table: 3
+
+TRUE POSITIVES: 286
+board: 26
+bookcase: 79
+chair: 117
+sofa: 6
+table: 58
+
