@@ -52,23 +52,24 @@ def get_stanford_dicts(img_dir, json_path):
     return dataset_dicts
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--area_dir', type=str)
-parser.add_argument('--area_json', type=str)
-#parser.add_argument('--pointcloud', type=str)
-parser.add_argument('--model_path', type=str)
-parser.add_argument('--detection_dir', type=str)
+parser.add_argument('--area_dir', type=str, help='Path of the 2D-3D-S Area directory.')
+parser.add_argument('--area_json', type=str, help='Path of the area json file. These are included in data folder.')
+parser.add_argument('--model_path', type=str, help='Path of the trained detectron2 model.')
+parser.add_argument('--model_config_path', type=str, help='Path of the trained model\'s detectron config  yaml file.')
+parser.add_argument('--detection_dir', type=str, help='Output directory path to create detection and ground truth files.')
 
 args = parser.parse_args()
 
 cfg = get_cfg()
-cfg.merge_from_file("/home/ubuntu/detectron2_repo/configs/COCO-Detection/retinanet_R_101_FPN_3x.yaml")
+#cfg.merge_from_file("/home/ubuntu/detectron2_repo/configs/COCO-Detection/retinanet_R_101_FPN_3x.yaml")
+cfg.merge_from_file(args.model_config_path)
 cfg.DATALOADER.NUM_WORKERS = 2
 #cfg.MODEL.WEIGHTS = "detectron2://COCO-Detection/faster_rcnn_R_50_FPN_3x/137849458/model_final_280758.pkl"  # initialize from model zoo
-cfg.TEST.EXPECTED_RESULTS = [['bbox', 'AP', 38.5, 0.2]]
-cfg.TEST.EVAL_PERIOD = 5
+#cfg.TEST.EXPECTED_RESULTS = [['bbox', 'AP', 38.5, 0.2]]
+#cfg.TEST.EVAL_PERIOD = 5
 cfg.SOLVER.IMS_PER_BATCH = 1
-cfg.SOLVER.BASE_LR = 0.001
-cfg.SOLVER.MAX_ITER = 1000000000    # 300 iterations seems good enough, but you can certainly train longer
+#cfg.SOLVER.BASE_LR = 0.001
+#cfg.SOLVER.MAX_ITER = 1000000000    # 300 iterations seems good enough, but you can certainly train longer
 cfg.MODEL.ROI_HEADS.NUM_CLASSES = 5  # only has one class (ballon)
 cfg.MODEL.WEIGHTS = args.model_path
 
@@ -77,6 +78,8 @@ predictor = DefaultPredictor(cfg)
 
 img_dir = os.path.join(args.area_dir, 'data', 'rgb')
 pose_dir = os.path.join(args.area_dir, 'data', 'pose')
+os.system("mkdir {}".format(os.path.join(args.detection_dir, 'detections')))
+os.system("mkdir {}".format(os.path.join(args.detection_dir, 'groundtruths')))
 
 dataset_dicts = get_stanford_dicts(img_dir, args.area_json)
 

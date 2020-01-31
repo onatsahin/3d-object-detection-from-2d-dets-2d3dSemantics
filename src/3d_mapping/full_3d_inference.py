@@ -6,13 +6,13 @@ import pandas as pd
 from subprocess import Popen, PIPE
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--pointcloud', type=str)
-parser.add_argument('--detection_dir', type=str)
-parser.add_argument('--pose_dir', type=str)
-parser.add_argument('--output_csv', type=str)
+parser.add_argument('--pointcloud', type=str, help='Path of the area point cloud.')
+parser.add_argument('--detection_dir', type=str, help='Path of the directory that contains 2D detection and ground truth files.')
+parser.add_argument('--area_dir', type=str, help='2D-3D-S area directory path.')
+parser.add_argument('--output_csv', type=str, help='Output CSV file to be created that includes 3D mappings.')
 
 args = parser.parse_args()
-detection_files = glob.glob(os.path.join(args.detection_dir, '*txt'))
+detection_files = glob.glob(os.path.join(args.detection_dir, 'detections', '*txt'))
 
 results = pd.DataFrame(columns=['2d_Detection_File', 'Class', 'Confidence', 'x_min', 'y_min', 'x_max', 'y_max', 'x', 'y', 'z'])
 header = True
@@ -29,7 +29,7 @@ for i, d in enumerate(detection_files):
             dets[i][j] = float(dets[i][j])
     #print(dets)
     pose_file_name = ('_').join(os.path.basename(d).split('_')[:-1]) + '_pose.json'
-    pose_file_path = os.path.join(args.pose_dir, pose_file_name)
+    pose_file_path = os.path.join(args.area_dir, 'data/pose', pose_file_name)
     
     with open(pose_file_path) as p_file:
         pose = json.load(p_file)

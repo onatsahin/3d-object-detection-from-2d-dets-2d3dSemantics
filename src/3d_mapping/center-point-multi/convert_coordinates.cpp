@@ -58,7 +58,7 @@ int main (int argc, char** argv) {
   float* ranges = rangeImage_quarter_res.getRangesArray(); //QUARTER
   unsigned char* rgb_image = pcl::visualization::FloatImageUtils::getVisualImage (ranges, rangeImage_quarter_res.width, rangeImage_quarter_res.height); 
 
-  pcl::io::saveRgbPNGFile(range_img_name, rgb_image, rangeImage_quarter_res.width, rangeImage_quarter_res.height); 
+//  pcl::io::saveRgbPNGFile(range_img_name, rgb_image, rangeImage_quarter_res.width, rangeImage_quarter_res.height); 
 
   //float* ranges = rangeImage.getRangesArray();
   //unsigned char* rgb_image = pcl::visualization::FloatImageUtils::getVisualImage (ranges, rangeImage.width, rangeImage.height); 

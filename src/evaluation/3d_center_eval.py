@@ -151,13 +151,13 @@ def write_item_dict(item_dict, fp):
     fp.write('\n')
         
 parser = argparse.ArgumentParser()
-parser.add_argument('--semantic_dir', type=str)
-parser.add_argument('--center_gt_dir', type=str)
-parser.add_argument('--detection_csv', type=str)
+parser.add_argument('--area_dir', type=str, help='2D-3D-S area directory path.')
+parser.add_argument('--center_gt_dir', type=str, help='Stanford3dDataset avg_annots_renamed directory path.')
+parser.add_argument('--detection_csv', type=str, help='Path of the CSV file that includes 3D mappings.')
 #parser.add_argument('--test_area_jsons', nargs='*', type=str, default=[])
-parser.add_argument('--object_size_info_json', type=str)
-parser.add_argument('--area_object_index_json', type=str)
-parser.add_argument('--result_text', type=str)
+parser.add_argument('--object_size_info_json', type=str, help='Path of the area object info json file.')
+parser.add_argument('--area_object_index_json', type=str, help='Path of the area test object index json file.')
+parser.add_argument('--result_text', type=str, help='Final result txt file.')
 
 
 
@@ -165,7 +165,7 @@ parser.add_argument('--result_text', type=str)
 args = parser.parse_args()
 labels = utils.load_labels('/mnt/data/2D-3D-Semantics/assets/semantic_labels.json')
 detections = pd.read_csv(args.detection_csv).dropna()
-semantic_dir = args.semantic_dir
+semantic_dir = os.path.join(args.area_dir, 'data/semantic')
 gt_dir = args.center_gt_dir
 #test_area_jsons = args.test_area_jsons 
 
