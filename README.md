@@ -31,4 +31,5 @@ sudo ln -s /usr/lib/x86_64-linux-gnu/libvtkCommonCore-6.2.so /usr/lib/libvtkproj
 
 ## Usage
 
-*
+* Use a Detectron2 script to perfom object detection training on area training images. A sample script train.py is included in src/detectron_scripts, but it should be edited for different scenarios.
+* Use src/detectron_scripts/full_inference.py to perform inference on an area's test set.
